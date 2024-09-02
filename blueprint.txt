@@ -1,0 +1,85 @@
+
+
+Game: {
+    Board: {
+        Making the board: {
+
+        }
+        Marking a board: {
+
+            Marking the board with the respective marker: {
+
+            }
+        }
+        Displaying the board: {
+
+        }
+
+    }
+
+    User Input: {
+        Ask for a row number, and column number: {
+            Validate to make sure they input a number:{
+                Repeat the prompt if input is invalid.
+            }
+            Validate to make sure there is not already a player marker: {
+                Repeat the prompt if input is invalid.
+            }
+
+            Transform the input into integers:{
+
+            }
+            Return integers;
+        }
+    }
+
+    Winner: {
+        Check values for rows: {
+            set the winner if there is one
+        }
+        Check values for columns: {
+            set the winner if there is one
+
+        }
+        Check values for diagonals: {
+            set the winner if there is one
+
+        }
+
+
+        Return getWinner() 
+
+    }
+
+    Starting a new round: {
+        Printing the new round: {
+            Announcing the current player's turn: {
+
+            }
+            Using Board.display to print the board: {
+
+            }
+        }
+        Asking for a position to mark the board from the player: {
+            Get numbers from UserInput.row or UserInput.col 
+        }
+        Marking the board: {
+            call Board.markSpot()
+        }
+        Checking for a Winner: {
+            check Winner.getWinner()
+        }
+
+    }
+}
+
+Controller: {
+    while there is no winner: {
+        play a round
+    }
+    otherwise, announce the winner and close the game.
+}
+
+
+What the main game function needs: 
+- the game and its winner 

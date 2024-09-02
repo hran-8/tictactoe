@@ -14,13 +14,13 @@ function Gameboard () {
     const getBoard = () => board;
 
     const markSpot = (player, row, col) => {
-        
 
         if (board[row][col].getValue() === 0) {
             board[row][col].changeValue(player);
             return;
         }
         else {
+            console.log(row, col);
             alert("A player has already placed a marker there.\n");
         }
         
@@ -69,17 +69,19 @@ function GameController () {
 
     let board = Gameboard();
     let activePlayer = players[0]
+    let winner =0;
 
 
 
 
     const position = (() => {
-        let col;
-        let row;
+        let col = 0;
+        let row = 0;
         const askPosition = () => {
-            console.log("Waiting for input from user:\n");
             row = prompt("Enter the row");
             col = prompt("Enter the col\n");
+            row = +row;
+            col = +col;
 
         }
 
@@ -94,6 +96,9 @@ function GameController () {
 
     const getActivePlayer = () => activePlayer;
 
+
+    const getWinner = () => winner;
+
     const switchPlayerTurn = () => activePlayer === players[0] ? activePlayer = players[1] : activePlayer = players[0];
 
     const printNewRound = () => {
@@ -101,25 +106,49 @@ function GameController () {
         console.log(`${getActivePlayer().name}'s turn.\n`);
     }
 
-    const checkWinner = () => {
-        
+    const checkWinner = (player, row, col) => {
+        // Check the row
+        if (board.getBoard()[row].every(cell => cell.getValue() === player.marker)) {
+            return player;
+        }
+    
+        // Check the column
+        let column = board.getBoard().map(row => row[col]);
+        if (column.every(cell => cell.getValue() === player.marker)) {
+            return player;
+        }
+    
+        // Check diagonals
+        if ((board.getBoard()[0][0].getValue() === player.marker && 
+             board.getBoard()[1][1].getValue() === player.marker && 
+             board.getBoard()[2][2].getValue() === player.marker) ||
+            (board.getBoard()[0][2].getValue() === player.marker && 
+             board.getBoard()[1][1].getValue() === player.marker && 
+             board.getBoard()[2][0].getValue() === player.marker)) {
+            return player;
+        }
+    
+        return false;
     }
+    
 
 
     function playRound () {
-        try {
+            printNewRound();
             position.askPosition();
             board.markSpot(getActivePlayer(), position.getRow(), position.getCol());
-            checkWinner();
+            winner = checkWinner(getActivePlayer(), position.getRow(), position.getCol());
+            if (winner) {
+                return;
+            }
+          
             switchPlayerTurn();
-            printNewRound();
-        } catch (error) {
-            console.log(error);
+   
         }
-    }
 
 
-    return {playRound};
+
+    return {playRound, getWinner};
 
 
 
@@ -130,10 +159,11 @@ function Game () {
 
     let counter = 0;
 
-    while (counter < 3) {
+    while (!game.getWinner()) {
         game.playRound();
         counter++;
     }
+    console.log(`Winner: ${game.getWinner().name}\n`);
 }
 
 
