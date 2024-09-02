@@ -4,7 +4,7 @@ function Gameboard () {
     let board = [];
 
     for (let i = 0; i < rows; i++) {
-        board[i] = []
+        board[i] = [];
         for (let j = 0; j < cols; j++) {
             board[i].push(Cell());
         }
@@ -24,6 +24,7 @@ function Gameboard () {
             alert("A player has already placed a marker there.\n");
         }
         
+
 
     }
 
@@ -47,6 +48,8 @@ function Cell () {
 
     return {changeValue, getValue};
 }
+
+
 
 function GameController () {
     const playerOneName = 'Player One'; 

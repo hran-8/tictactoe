@@ -3,7 +3,10 @@
 Game: {
     Board: {
         Making the board: {
+            board has 3 rows; 
+            board has 3 cols; 
 
+            each spot is a cell object
         }
         Marking a board: {
 
@@ -68,6 +71,9 @@ Game: {
         }
         Checking for a Winner: {
             check Winner.getWinner()
+        }
+        Switch Players: {
+            
         }
 
     }
